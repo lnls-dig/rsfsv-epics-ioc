@@ -38,8 +38,24 @@ $ DEVICE_IP="10.0.18.77" DEVICE_INST="0" ../../bin/linux-x86_64/rsfsv ./st.cmd
 ```
 
 The *DEVICE_IP* and *DEVICE_INST* specify the instrument IP and the
-instantiation tag, which will be present at the *DEVICE_IDN* and should
-be unique to differenciate the device from similars.
+instantiation tag, which will be present at the *DEVICE_IDN* and
+should be unique to differenciate the device from similars.
+
+In some situations is desired to run the process using the procServ,
+which enables the IOC to be controlled by the system. This is done
+through the following commands:
+
+```sh
+$ make clean &&
+$ make uninstall &&
+$ make &&
+$ cd iocBoot/iocrsfsv &&
+$ procServ -n "RSFSV" -f -i ^C^D 20000 ./run.sh 10.0.18.77 0
+```
+
+It is important to notice that the *DEVICE_IP* and *DEVICE_INST*
+arguments are passed after the */run.sh* in the last line.
+
 
 ### Caput
 
