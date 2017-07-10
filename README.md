@@ -5,22 +5,6 @@
 Repository containing the EPICS IOC support for the R&S FSV signal
 analyzer.
 
-## PV Structures
-
-The PVs have 3 parameters: The device identifier, the functionality
-group and the functionality name, all separated by colons as shown
-below.
-
-```
-DEVICE_IDN:GROUP:NAME
-```
-
-The DEVICE_IDN is set on the *st.cmd* file, and can be easily
-customized. For the initialization of the IOC, the device IP must be
-given, either by passing it as the argument *DEVICE_IP* during the
-initialization or by setting it on the
-*iocBoot/iocrsfsv/device.config* file.
-
 ## Example
 
 ### Initialization
