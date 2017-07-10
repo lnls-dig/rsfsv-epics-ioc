@@ -45,7 +45,7 @@ It is important to notice that the *DEVICE_IP* is passed as an argument to the
 An example of writing span is given below:
 
 ```
-$ caput ${P}${R}FREQ:Span 1e6
+$ caput ${P}${R}FREQ:Span-SP 1e6
 ```
 
 ### Caget
@@ -53,7 +53,7 @@ $ caput ${P}${R}FREQ:Span 1e6
 An example of reading span is given below:
 
 ```
-$ caget ${P}${R}FREQ:Span_RBV
+$ caget ${P}${R}FREQ:Span-RB
 ```
 
 ## Implemented Functionalities

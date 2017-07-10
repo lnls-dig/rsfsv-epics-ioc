@@ -39,7 +39,7 @@
 ######################################################################
 # Reset to default state
 
-record(bo, "$(P)$(R)GENERAL:Reset") {
+record(bo, "$(P)$(R)GENERAL:Reset-Cmd") {
   field(DESC, "Reset to default state")
   field(DTYP, "stream")
   field(ZNAM, "0")
@@ -51,7 +51,7 @@ record(bo, "$(P)$(R)GENERAL:Reset") {
 ######################################################################
 # Get identification
 
-record(stringin, "$(P)$(R)GENERAL:Idn") {
+record(stringin, "$(P)$(R)GENERAL:Idn-Cte") {
   field(DESC, "Get device identification")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -61,7 +61,7 @@ record(stringin, "$(P)$(R)GENERAL:Idn") {
 ######################################################################
 # Reference Level
 
-record(ai, "$(P)$(R)GENERAL:RefLvl_RBV") {
+record(ai, "$(P)$(R)GENERAL:RefLvl-RB") {
   field(DESC, "Get reference level")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -73,18 +73,18 @@ record(ai, "$(P)$(R)GENERAL:RefLvl_RBV") {
   field(INP, "@rsfsv.proto inRefLvl $(PORT)")
 }
 
-record(ao, "$(P)$(R)GENERAL:RefLvl") {
+record(ao, "$(P)$(R)GENERAL:RefLvl-SP") {
   field(DESC, "Set reference level")
   field(DTYP, "stream")
   field(EGU, "dBm")
   field(OUT, "@rsfsv.proto outRefLvl($1) $(PORT)")
-  field(FLNK,"$(P)$(R)GENERAL:RefLvl_RBV")
+  field(FLNK,"$(P)$(R)GENERAL:RefLvl-RB")
 }
 
 ######################################################################
 # Reference Level Offset
 
-record(ai, "$(P)$(R)GENERAL:RefOff_RBV") {
+record(ai, "$(P)$(R)GENERAL:RefOff-RB") {
   field(DESC, "Get reference level offset")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -96,18 +96,18 @@ record(ai, "$(P)$(R)GENERAL:RefOff_RBV") {
   field(INP, "@rsfsv.proto inRefOff $(PORT)")
 }
 
-record(ao, "$(P)$(R)GENERAL:RefOff") {
+record(ao, "$(P)$(R)GENERAL:RefOff-SP") {
   field(DESC, "Set reference level offset")
   field(DTYP, "stream")
   field(EGU, "dBm")
   field(OUT, "@rsfsv.proto outRefOff($1) $(PORT)")
-  field(FLNK,"$(P)$(R)GENERAL:RefOff_RBV")
+  field(FLNK,"$(P)$(R)GENERAL:RefOff-RB")
 }
 
 ######################################################################
 # Continuous Sweep State
 
-record(bi, "$(P)$(R)GENERAL:SweMode_RBV") {
+record(bi, "$(P)$(R)GENERAL:SweMode-Sts") {
   field(DESC, "Get sweep mode (SINGLE|CONTINUOUS)")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -116,19 +116,19 @@ record(bi, "$(P)$(R)GENERAL:SweMode_RBV") {
   field(INP, "@rsfsv.proto inSweMode $(PORT)")
 }
 
-record(bo, "$(P)$(R)GENERAL:SweMode") {
+record(bo, "$(P)$(R)GENERAL:SweMode-Sel") {
   field(DESC, "Set sweep mode (SINGLE|CONTINUOUS)")
   field(DTYP, "stream")
   field(ZNAM, "SINGLE")
   field(ONAM, "CONTINUOUS")
   field(OUT, "@rsfsv.proto outSweMode($1) $(PORT)")
-  field(FLNK,"$(P)$(R)GENERAL:SweMode_RBV")
+  field(FLNK,"$(P)$(R)GENERAL:SweMode-Sts")
 }
 
 ######################################################################
 # Sweep Points Number
 
-record(ai, "$(P)$(R)GENERAL:SwePoints_RBV") {
+record(ai, "$(P)$(R)GENERAL:SwePoints-RB") {
   field(DESC, "Get number of points in one sweep")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -140,18 +140,18 @@ record(ai, "$(P)$(R)GENERAL:SwePoints_RBV") {
   field(INP, "@rsfsv.proto inSwePoints $(PORT)")
 }
 
-record(ao, "$(P)$(R)GENERAL:SwePoints") {
+record(ao, "$(P)$(R)GENERAL:SwePoints-SP") {
   field(DESC, "Set number of points in one sweep")
   field(DTYP, "stream")
   field(EGU, "points")
   field(OUT, "@rsfsv.proto outSwePoints($1) $(PORT)")
-  field(FLNK,"$(P)$(R)GENERAL:SwePoints_RBV")
+  field(FLNK,"$(P)$(R)GENERAL:SwePoints-RB")
 }
 
 ######################################################################
 # Auto Adjust Center Frequency
 
-record(bo, "$(P)$(R)GENERAL:AutoFreq") {
+record(bo, "$(P)$(R)GENERAL:AutoFreq-Cmd") {
   field(DESC, "Auto adjust center frequency")
   field(DTYP, "stream")
   field(ZNAM, "0")
@@ -163,7 +163,7 @@ record(bo, "$(P)$(R)GENERAL:AutoFreq") {
 ######################################################################
 # Auto Adjust Reference Level
 
-record(bo, "$(P)$(R)GENERAL:AutoLvl") {
+record(bo, "$(P)$(R)GENERAL:AutoLvl-Cmd") {
   field(DESC, "Auto adjust reference level")
   field(DTYP, "stream")
   field(ZNAM, "0")
@@ -175,7 +175,7 @@ record(bo, "$(P)$(R)GENERAL:AutoLvl") {
 ######################################################################
 # Auto Adjust Frequency and Reference Level
 
-record(bo, "$(P)$(R)GENERAL:AutoAll") {
+record(bo, "$(P)$(R)GENERAL:AutoAll-Cmd") {
   field(DESC, "Auto adjust frequency and reference level")
   field(DTYP, "stream")
   field(ZNAM, "0")
@@ -187,7 +187,7 @@ record(bo, "$(P)$(R)GENERAL:AutoAll") {
 ######################################################################
 # Read Trace
 
-record(waveform, "$(P)$(R)GENERAL:Trace_RBV") {
+record(waveform, "$(P)$(R)GENERAL:Trace-RB") {
     field(DESC, "Get trace waveform")
     field(NELM, "32001")
     field(FTVL, "FLOAT")
@@ -199,7 +199,7 @@ record(waveform, "$(P)$(R)GENERAL:Trace_RBV") {
 ######################################################################
 # CENTER FREQUENCY
 
-record(ai, "$(P)$(R)FREQ:Center_RBV") {
+record(ai, "$(P)$(R)FREQ:Center-RB") {
   field(DESC, "Get center frequency")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -211,18 +211,18 @@ record(ai, "$(P)$(R)FREQ:Center_RBV") {
   field(INP, "@rsfsv.proto inFrqCent $(PORT)")
 }
 
-record(ao, "$(P)$(R)FREQ:Center") {
+record(ao, "$(P)$(R)FREQ:Center-SP") {
   field(DESC, "Set center frequency")
   field(DTYP, "stream")
   field(EGU, "Hz")
   field(OUT, "@rsfsv.proto outFrqCent($1) $(PORT)")
-  field(FLNK,"$(P)$(R)FREQ:Center_RBV")
+  field(FLNK,"$(P)$(R)FREQ:Center-RB")
 }
 
 ######################################################################
 # FREQUENCY SPAN
 
-record(ai, "$(P)$(R)FREQ:Span_RBV") {
+record(ai, "$(P)$(R)FREQ:Span-RB") {
   field(DESC, "Get frequency span")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -234,18 +234,18 @@ record(ai, "$(P)$(R)FREQ:Span_RBV") {
   field(INP, "@rsfsv.proto inFrqSpan $(PORT)")
 }
 
-record(ao, "$(P)$(R)FREQ:Span") {
+record(ao, "$(P)$(R)FREQ:Span-SP") {
   field(DESC, "Set frequency span")
   field(DTYP, "stream")
   field(EGU, "Hz")
   field(OUT, "@rsfsv.proto outFrqSpan($1) $(PORT)")
-  field(FLNK,"$(P)$(R)FREQ:Span_RBV")
+  field(FLNK,"$(P)$(R)FREQ:Span-RB")
 }
 
 ######################################################################
 # START FREQUENCY
 
-record(ai, "$(P)$(R)FREQ:Start_RBV") {
+record(ai, "$(P)$(R)FREQ:Start-RB") {
   field(DESC, "Get start frequency")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -257,18 +257,18 @@ record(ai, "$(P)$(R)FREQ:Start_RBV") {
   field(INP, "@rsfsv.proto inFrqStart $(PORT)")
 }
 
-record(ao, "$(P)$(R)FREQ:Start") {
+record(ao, "$(P)$(R)FREQ:Start-SP") {
   field(DESC, "Set start frequency")
   field(DTYP, "stream")
   field(EGU, "Hz")
   field(OUT, "@rsfsv.proto outFrqStart($1) $(PORT)")
-  field(FLNK,"$(P)$(R)FREQ:Start_RBV")
+  field(FLNK,"$(P)$(R)FREQ:Start-RB")
 }
 
 ######################################################################
 # STOP FREQUENCY
 
-record(ai, "$(P)$(R)FREQ:Stop_RBV") {
+record(ai, "$(P)$(R)FREQ:Stop-RB") {
   field(DESC, "Get stop frequency")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -280,18 +280,18 @@ record(ai, "$(P)$(R)FREQ:Stop_RBV") {
   field(INP, "@rsfsv.proto inFrqStop $(PORT)")
 }
 
-record(ao, "$(P)$(R)FREQ:Stop") {
+record(ao, "$(P)$(R)FREQ:Stop-SP") {
   field(DESC, "Set stop frequency")
   field(DTYP, "stream")
   field(EGU, "Hz")
   field(OUT, "@rsfsv.proto outFrqStop($1) $(PORT)")
-  field(FLNK,"$(P)$(R)FREQ:Stop_RBV")
+  field(FLNK,"$(P)$(R)FREQ:Stop-RB")
 }
 
 ######################################################################
 # Get X Value of the Marker
 
-record(ai, "$(P)$(R)MARK:X_RBV") {
+record(ai, "$(P)$(R)MARK:X-RB") {
   field(DESC, "Get X value of the marker")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -303,18 +303,18 @@ record(ai, "$(P)$(R)MARK:X_RBV") {
   field(INP, "@rsfsv.proto inMarkX $(PORT)")
 }
 
-record(ao, "$(P)$(R)MARK:X") {
+record(ao, "$(P)$(R)MARK:X-SP") {
   field(DESC, "Set X value of the marker")
   field(DTYP, "stream")
   field(EGU, "seconds or Hz")
   field(OUT, "@rsfsv.proto outMarkX($1) $(PORT)")
-  field(FLNK,"$(P)$(R)MARK:X_RBV")
+  field(FLNK,"$(P)$(R)MARK:X-RB")
 }
 
 ######################################################################
 # Get Y Value of the Marker
 
-record(ai, "$(P)$(R)MARK:Y_RBV") {
+record(ai, "$(P)$(R)MARK:Y-RB") {
   field(DESC, "Get Y value of the marker")
   field(SCAN, "1 second")
   field(DTYP, "stream")
@@ -329,7 +329,7 @@ record(ai, "$(P)$(R)MARK:Y_RBV") {
 ######################################################################
 # Set Marker to Max Peak on Trace
 
-record(bo, "$(P)$(R)MARK:FindMax") {
+record(bo, "$(P)$(R)MARK:FindMax-Cmd") {
   field(DESC, "Set marker to max peak on trace")
   field(DTYP, "stream")
   field(ZNAM, "0")
