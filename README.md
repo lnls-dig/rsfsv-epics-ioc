@@ -80,7 +80,6 @@ after it.
  - **Start**: Set start frequency (Hz)
  - **Stop**: Set stop frequency (Hz)
 
-
 - **MARK** - Functionalities related to MARKers
  - **X**: Set X value of the marker (seconds or Hz)
  - **Y_RBV**: Get Y value of the marker (dBm) - *read only*
