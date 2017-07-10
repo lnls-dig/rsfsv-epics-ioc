@@ -13,14 +13,4 @@ if [ -z "$DEVICE_IP" ]; then
     exit 1
 fi
 
-# Select instance of the device.
-if [ -z "$DEVICE_INST" ]; then
-    DEVICE_INST="$2"
-fi
-
-if [ -z "$DEVICE_INST" ]; then
-    echo "\"DEVICE_INST\" variable unset."
-    exit 1
-fi
-
-DEVICE_IP="${DEVICE_IP}" DEVICE_INST="${DEVICE_INST}" "../../bin/${EPICS_HOST_ARCH}/rsfsv" st.cmd
+DEVICE_IP="${DEVICE_IP}" "../../bin/${EPICS_HOST_ARCH}/rsfsv" st.cmd
