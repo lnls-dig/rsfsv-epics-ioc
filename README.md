@@ -34,7 +34,7 @@ $ make clean &&
 $ make uninstall &&
 $ make &&
 $ cd iocBoot/iocrsfsv &&
-$ DEVICE_IP="10.0.18.77" R="" ../../bin/linux-x86_64/rsfsv ./st.cmd
+$ DEVICE_IP="10.0.18.77" P="TEST:" R="RSFSV:" ../../bin/linux-x86_64/rsfsv ./st.cmd
 ```
 
 The *DEVICE_IP* specify the instrument IP.
@@ -48,11 +48,12 @@ $ make clean &&
 $ make uninstall &&
 $ make &&
 $ cd iocBoot/iocrsfsv &&
-$ procServ -n "RSFSV" -f -i ^C^D 20000 ./run.sh 10.0.18.77
+$ procServ -n "RSFSV" -f -i ^C^D 20000 ./run.sh -i "10.0.18.77" -p "TEST:" -r "RSFSV:"
 ```
 
-It is important to notice that the *DEVICE_IP* argument is passed after the
-*./run.sh* in the last line.
+It is important to notice that the *DEVICE_IP* is passed as an argument to the
+`./run.sh` script using the `-i` option (long form: `--device-ip`). The optional
+`-p` and `-r` options specify the prefix of the PV names.
 
 
 ### Caput
@@ -60,7 +61,7 @@ It is important to notice that the *DEVICE_IP* argument is passed after the
 An example of writing span is given below:
 
 ```
-$ caput DIG-RSFSV-0:FREQ:Span 1e6
+$ caput ${P}${R}FREQ:Span 1e6
 ```
 
 ### Caget
@@ -68,7 +69,7 @@ $ caput DIG-RSFSV-0:FREQ:Span 1e6
 An example of reading span is given below:
 
 ```
-$ caget DIG-RSFSV-0:FREQ:Span_RBV
+$ caget ${P}${R}FREQ:Span_RBV
 ```
 
 ## Implemented Functionalities
