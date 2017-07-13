@@ -21,9 +21,9 @@ $ cd iocBoot/iocrsfsv &&
 $ DEVICE_IP="10.0.18.77" P="TEST:" R="RSFSV:" ../../bin/linux-x86_64/rsfsv ./st.cmd
 ```
 
-The *DEVICE_IP* specify the instrument IP.
+The *DEVICE_IP* specifies the instrument IP.
 
-In some situations is desired to run the process using the procServ,
+In some situations it is desired to run the process using the procServ,
 which enables the IOC to be controlled by the system. This is done
 through the following commands:
 
