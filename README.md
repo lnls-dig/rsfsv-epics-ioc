@@ -59,28 +59,31 @@ $ caget ${P}${R}FREQ:Span-RB
 ## Implemented Functionalities
 
 The functionalities are divided in 3 major groups: GENERAL, FREQ and
-MARK. To set values, use the given name. To read them, add *_RBV*
-after it.
+MARK. To access the values, use the given name with the necessary suffix. There
+are always two possible suffixes, one for reading the value and one for changing
+the value. For each variable below, they are given inside braces as the read and
+write suffixes separated by a comma, respectively. Devices with no read or no
+write access are marked as such by having a single prefix.
 
 - **GENERAL** - General functionalities
- - **Reset**: Reset the device to default state
- - **Idn**: Get the device identification - *read only*
- - **RefLvl**: Set reference level (dBm)
- - **RefOff**: Set reference level offset (dBm)
- - **SweMode**: Set sweep mode (SINGLE|CONTINUOUS)
- - **SwePoints**: Set number of points in one sweep
- - **AutoFreq**: Auto adjust center frequency (OFF|ON)
- - **AutoLvl**: Auto adjust reference level (OFF|ON)
- - **AutoAll**: Auto adjust frequency and reference level (OFF|ON)
- - **Trace_RBV**: Get trace waveform - *read only*
+ - **Reset-Cmd**: Reset the device to default state
+ - **Idn-Cte**: Get the device identification - *read only*
+ - **RefLvl-{RB,SP}**: Set reference level (dBm)
+ - **RefOff-{RB,SP}**: Set reference level offset (dBm)
+ - **SweMode-{Sts,Sel}**: Set sweep mode (SINGLE|CONTINUOUS)
+ - **SwePoints-{RB,SP}**: Set number of points in one sweep
+ - **AutoFreq-Cmd**: Auto adjust center frequency (OFF|ON)
+ - **AutoLvl-Cmd**: Auto adjust reference level (OFF|ON)
+ - **AutoAll-Cmd**: Auto adjust frequency and reference level (OFF|ON)
+ - **Trace-RB**: Get trace waveform - *read only*
 
 - **FREQ** - Functionalities related to FREQuency
- - **Center**: Set center frequency (Hz)
- - **Span**: Set frequency span (Hz)
- - **Start**: Set start frequency (Hz)
- - **Stop**: Set stop frequency (Hz)
+ - **Center-{RB,SP}**: Set center frequency (Hz)
+ - **Span-{RB,SP}**: Set frequency span (Hz)
+ - **Start-{RB,SP}**: Set start frequency (Hz)
+ - **Stop-{RB,SP}**: Set stop frequency (Hz)
 
 - **MARK** - Functionalities related to MARKers
- - **X**: Set X value of the marker (seconds or Hz)
- - **Y_RBV**: Get Y value of the marker (dBm) - *read only*
- - **FindMax**: Set marker to max peak on trace (OFF|ON)
+ - **X-{RB,SP}**: Set X value of the marker (seconds or Hz)
+ - **Y-RB**: Get Y value of the marker (dBm) - *read only*
+ - **FindMax-Cmd**: Set marker to max peak on trace (OFF|ON)
