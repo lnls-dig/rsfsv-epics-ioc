@@ -1,0 +1,38 @@
+[Unit]
+Description=RSFSV IOC %p%I
+After=rc-local.service
+Wants=rc-local.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Source environment
+EnvironmentFile=/etc/sysconfig/rsfsv-epics-ioc
+EnvironmentFile=/etc/sysconfig/rsfsv-epics-ioc-mapping
+# Execute pre with root
+PermissionsStartOnly=true
+Environment=RSFSV_INSTANCE=%i
+ExecStartPre=/bin/mkdir -p /var/log/procServ/%p%i
+ExecStartPre=/bin/mkdir -p /var/run/procServ/%p%i
+WorkingDirectory=/opt/epics/startup/ioc/rsfsv-epics-ioc/iocBoot/iocrsfsv
+# Run procServ with IOC
+ExecStart=/bin/bash -c "\
+    RSFSV_CURRENT_PV_AREA_PREFIX=RSFSV_${RSFSV_INSTANCE}_PV_AREA_PREFIX && \
+    RSFSV_CURRENT_PV_DEVICE_PREFIX=RSFSV_${RSFSV_INSTANCE}_PV_DEVICE_PREFIX && \
+    RSFSV_CURRENT_DEVICE_IP=RSFSV_${RSFSV_INSTANCE}_DEVICE_IP && \
+    RSFSV_CURRENT_DEVICE_TELNET_PORT_SUFFIX=RSFSV_$${RSFSV_INSTANCE}_TELNET_PORT_SUFFIX && \
+    RSFSV_PV_AREA_PREFIX=${!RSFSV_CURRENT_PV_AREA_PREFIX} && \
+    RSFSV_PV_DEVICE_PREFIX=${!RSFSV_CURRENT_PV_DEVICE_PREFIX} && \
+    RSFSV_DEVICE_IP=${!RSFSV_CURRENT_DEVICE_IP} && \
+    /usr/local/bin/procServ \
+    -f \
+    -n %p%i \
+    -i ^C^D \
+    $${PROCSERV_RSFSV_PORT_PREFIX}$${!RSFSV_CURRENT_DEVICE_TELNET_PORT_SUFFIX} \
+    ./runrsfsv.sh \
+    -i ${RSFSV_DEVICE_IP} \
+    -P ${RSFSV_PV_AREA_PREFIX} \
+    -R ${RSFSV_PV_DEVICE_PREFIX}"
+
+[Install]
+WantedBy=multi-user.target
