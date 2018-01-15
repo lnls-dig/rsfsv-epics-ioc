@@ -1,16 +1,8 @@
-#!../../bin/linux-x86_64/rsfsv
-
-## You may have to change rsfsv to something else
-## everywhere it appears in this file
-
 < envPaths
+< rsfsv.config
 
-#cd ${TOP}
+####################################################
 
-# Load device configurations
-< device.config
-
-epicsEnvSet("TOP", "../..")
 epicsEnvSet("STREAM_PROTOCOL_PATH", "$(TOP)/rsfsvApp/Db")
 
 ## Register all support components
@@ -23,8 +15,12 @@ dbLoadRecords("${TOP}/rsfsvApp/Db/rsfsv.db", "P=$(P), R=$(R), PORT=rsfsv_port, A
 # Create the asyn port to use the VXI11 protocol
 vxi11Configure("rsfsv_port","$(DEVICE_IP)",1,1000,"inst")
 
-#cd ${TOP}/iocBoot/${IOC}
+< save_restore.cmd
+
 iocInit
 
 ## Start any sequence programs
-#seq sncxxx,"user=finottiHost"
+# No sequencer program
+
+# Create manual trigger for Autosave
+create_triggered_set("auto_settings_rsfsv.req", "${P}${R}SaveTrg", "P=${P}, R=${R}")
