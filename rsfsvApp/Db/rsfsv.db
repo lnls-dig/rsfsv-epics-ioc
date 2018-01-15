@@ -337,3 +337,25 @@ record(bo, "$(P)$(R)MARK:FindMax-Cmd") {
   field(HIGH, "1")
   field(OUT, "@rsfsv.proto outMarkMax($1) $(PORT)")
 }
+
+######################################################################
+# Save
+# Desc: Save '-Sel' and '-SP' PV values.
+
+record(bo, "$(P)$(R)Save-Cmd"){
+  field(DESC, "Save PV values cmd")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(HIGH, "1")
+  field(FLNK, "$(P)$(R)SaveTrg")
+}
+
+# This PV is monitored by autosave
+record(calc, "$(P)$(R)SaveTrg"){
+  field(ASG, "Reserved")
+  field(DESC, "Save PV values trigger")
+  field(INPA, "$(P)$(R)Save-Cmd.VAL")
+  field(CALC, "A=1?!VAL:VAL")
+  field(VAL, "0")
+}
+
