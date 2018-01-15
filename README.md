@@ -18,7 +18,7 @@ $ make clean &&
 $ make uninstall &&
 $ make &&
 $ cd iocBoot/iocrsfsv &&
-$ DEVICE_IP="10.0.18.77" P="TEST:" R="RSFSV:" ../../bin/linux-x86_64/rsfsv ./st.cmd
+$ DEVICE_IP="10.0.18.77" P="TEST:" R="RSFSV:" ../../bin/linux-x86_64/rsfsv ./strsfsv.cmd
 ```
 
 The *DEVICE_IP* specifies the instrument IP.
@@ -32,11 +32,11 @@ $ make clean &&
 $ make uninstall &&
 $ make &&
 $ cd iocBoot/iocrsfsv &&
-$ procServ -n "RSFSV" -f -i ^C^D 20000 ./run.sh -i "10.0.18.77" -P "TEST:" -R "RSFSV:"
+$ procServ -n "RSFSV" -f -i ^C^D 20000 ./runrsfsv.sh -i "10.0.18.77" -P "TEST:" -R "RSFSV:"
 ```
 
 It is important to notice that the *DEVICE_IP* is passed as an argument to the
-`./run.sh` script using the `-i` option (long form: `--device-ip`). The optional
+`./runrsfsv.sh` script using the `-i` option (long form: `--device-ip`). The optional
 `-P` and `-R` options specify the prefix of the PV names.
 
 
