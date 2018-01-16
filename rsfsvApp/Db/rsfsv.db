@@ -176,7 +176,7 @@ record(bo, "$(P)$(R)GENERAL:AutoLvl-Cmd") {
 # Auto Adjust Frequency and Reference Level
 
 record(bo, "$(P)$(R)GENERAL:AutoAll-Cmd") {
-  field(DESC, "Auto adjust frequency and reference level")
+  field(DESC, "Auto adjust freq. and reference level")
   field(DTYP, "stream")
   field(ZNAM, "0")
   field(ONAM, "1")
