@@ -45,7 +45,7 @@ It is important to notice that the *DEVICE_IP* is passed as an argument to the
 An example of writing span is given below:
 
 ```
-$ caput ${P}${R}FREQ:Span-SP 1e6
+$ caput ${P}${R}FreqSpan-SP 1e6
 ```
 
 ### Caget
@@ -53,37 +53,36 @@ $ caput ${P}${R}FREQ:Span-SP 1e6
 An example of reading span is given below:
 
 ```
-$ caget ${P}${R}FREQ:Span-RB
+$ caget ${P}${R}FreqSpan-RB
 ```
 
 ## Implemented Functionalities
 
-The functionalities are divided in 3 major groups: GENERAL, FREQ and
-MARK. To access the values, use the given name with the necessary suffix. There
-are always two possible suffixes, one for reading the value and one for changing
+The functionalities are divided in 3 major groups: General, Freq and
+Mark. There are always two possible suffixes, one for reading the value and one for changing
 the value. For each variable below, they are given inside braces as the read and
 write suffixes separated by a comma, respectively. Devices with no read or no
 write access are marked as such by having a single prefix.
 
 - **GENERAL** - General functionalities
- - **Reset-Cmd**: Reset the device to default state
- - **Idn-Cte**: Get the device identification - *read only*
- - **RefLvl-{RB,SP}**: Set reference level (dBm)
- - **RefOff-{RB,SP}**: Set reference level offset (dBm)
- - **SweMode-{Sts,Sel}**: Set sweep mode (SINGLE|CONTINUOUS)
- - **SwePoints-{RB,SP}**: Set number of points in one sweep
- - **AutoFreq-Cmd**: Auto adjust center frequency (OFF|ON)
- - **AutoLvl-Cmd**: Auto adjust reference level (OFF|ON)
- - **AutoAll-Cmd**: Auto adjust frequency and reference level (OFF|ON)
- - **Trace-RB**: Get trace waveform - *read only*
+ - **GeneralReset-Cmd**: Reset the device to default state
+ - **GeneralIdn-Cte**: Get the device identification - *read only*
+ - **GeneralRefLvl-{RB,SP}**: Set reference level (dBm)
+ - **GeneralRefOff-{RB,SP}**: Set reference level offset (dBm)
+ - **GeneralSweMode-{Sts,Sel}**: Set sweep mode (SINGLE|CONTINUOUS)
+ - **GeneralSwePoints-{RB,SP}**: Set number of points in one sweep
+ - **GeneralAutoFreq-Cmd**: Auto adjust center frequency (OFF|ON)
+ - **GeneralAutoLvl-Cmd**: Auto adjust reference level (OFF|ON)
+ - **GeneralAutoAll-Cmd**: Auto adjust frequency and reference level (OFF|ON)
+ - **GeneralTrace-RB**: Get trace waveform - *read only*
 
 - **FREQ** - Functionalities related to FREQuency
- - **Center-{RB,SP}**: Set center frequency (Hz)
- - **Span-{RB,SP}**: Set frequency span (Hz)
- - **Start-{RB,SP}**: Set start frequency (Hz)
- - **Stop-{RB,SP}**: Set stop frequency (Hz)
+ - **FreqCenter-{RB,SP}**: Set center frequency (Hz)
+ - **FreqSpan-{RB,SP}**: Set frequency span (Hz)
+ - **FreqStart-{RB,SP}**: Set start frequency (Hz)
+ - **FreqStop-{RB,SP}**: Set stop frequency (Hz)
 
 - **MARK** - Functionalities related to MARKers
- - **X-{RB,SP}**: Set X value of the marker (seconds or Hz)
- - **Y-RB**: Get Y value of the marker (dBm) - *read only*
- - **FindMax-Cmd**: Set marker to max peak on trace (OFF|ON)
+ - **MarkX-{RB,SP}**: Set X value of the marker (seconds or Hz)
+ - **MarkY-RB**: Get Y value of the marker (dBm) - *read only*
+ - **MarkFindMax-Cmd**: Set marker to max peak on trace (OFF|ON)
