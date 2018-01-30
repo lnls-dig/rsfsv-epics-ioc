@@ -17,3 +17,7 @@ while [ "$#" -gt 0 ]; do
 
     shift 2
 done
+
+if [ -z "$EPICS_CA_MAX_ARRAY_BYTES" ]; then
+    export EPICS_CA_MAX_ARRAY_BYTES=64002
+fi
