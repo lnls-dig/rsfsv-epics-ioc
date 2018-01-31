@@ -17,6 +17,10 @@ if [ -z "$DEVICE_IP" ]; then
     exit 7
 fi
 
+if [ -z "$EPICS_CA_MAX_ARRAY_BYTES" ]; then
+    export EPICS_CA_MAX_ARRAY_BYTES="300000"
+fi
+
 cd "$IOC_BOOT_DIR"
 
 P="$P" R="$R" DEVICE_IP="$DEVICE_IP" "$IOC_BIN" strsfsv.cmd
