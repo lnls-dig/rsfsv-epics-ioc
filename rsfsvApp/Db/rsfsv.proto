@@ -38,11 +38,20 @@
 
 ######################################################################
 #
+# Variable declaration
+#
+GLOBAL_TIMEOUT = 5000;
+
+######################################################################
+#
 # Communication setup
 #
 OutTerminator = CR LF;
 InTerminator = LF;
 ExtraInput = Ignore;
+WriteTimeout = ${GLOBAL_TIMEOUT};
+ReadTimeout = ${GLOBAL_TIMEOUT};
+ReplyTimeout = ${GLOBAL_TIMEOUT};
 #
 #
 
