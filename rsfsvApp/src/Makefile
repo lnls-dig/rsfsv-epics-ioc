@@ -45,7 +45,9 @@ rsfsv_DBD += drvAsynIPPort.dbd
 rsfsv_DBD += drvVxi11.dbd
 rsfsv_DBD += stream.dbd
 rsfsv_DBD += calcSupport.dbd
+rsfsv_DBD += asSupport.dbd
 
 rsfsv_LIBS += asyn
 rsfsv_LIBS += stream
 rsfsv_LIBS += calc
+rsfsv_LIBS += autosave
