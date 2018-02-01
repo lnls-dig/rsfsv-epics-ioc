@@ -13,7 +13,7 @@ rsfsv_registerRecordDeviceDriver pdbbase
 dbLoadRecords("${TOP}/rsfsvApp/Db/rsfsv.db", "P=$(P), R=$(R), PORT=rsfsv_port, ADDR=0, TIMEOUT=1")
 
 # Create the asyn port to use the VXI11 protocol
-vxi11Configure("rsfsv_port","$(DEVICE_IP)",1,1000,"inst")
+vxi11Configure("rsfsv_port","$(DEVICE_IP)",0,"0.0","inst0",0,0)
 
 < save_restore.cmd
 
