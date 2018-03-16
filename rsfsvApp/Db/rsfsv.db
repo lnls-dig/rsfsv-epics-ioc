@@ -48,7 +48,6 @@ record(bo, "$(P)$(R)GeneralReset-Cmd") {
   field(OUT, "@rsfsv.proto outRst $(PORT)")
 }
 
-######################################################################
 # Get identification
 
 record(stringin, "$(P)$(R)GeneralIdn-Cte") {
@@ -58,7 +57,6 @@ record(stringin, "$(P)$(R)GeneralIdn-Cte") {
   field(INP, "@rsfsv.proto inIdn $(PORT)")
 }
 
-######################################################################
 # Reference Level
 
 record(ai, "$(P)$(R)GeneralRefLvl-RB") {
@@ -81,7 +79,6 @@ record(ao, "$(P)$(R)GeneralRefLvl-SP") {
   field(FLNK,"$(P)$(R)GeneralRefLvl-RB")
 }
 
-######################################################################
 # Reference Level Offset
 
 record(ai, "$(P)$(R)GeneralRefOff-RB") {
@@ -104,8 +101,7 @@ record(ao, "$(P)$(R)GeneralRefOff-SP") {
   field(FLNK,"$(P)$(R)GeneralRefOff-RB")
 }
 
-######################################################################
-# Continuous Sweep State
+# Continuous Sweep Mode
 
 record(bi, "$(P)$(R)GeneralSweMode-Sts") {
   field(DESC, "Get sweep mode (SINGLE|CONTINUOUS)")
@@ -125,7 +121,6 @@ record(bo, "$(P)$(R)GeneralSweMode-Sel") {
   field(FLNK,"$(P)$(R)GeneralSweMode-Sts")
 }
 
-######################################################################
 # Sweep Points Number
 
 record(ai, "$(P)$(R)GeneralSwePoints-RB") {
@@ -148,8 +143,7 @@ record(ao, "$(P)$(R)GeneralSwePoints-SP") {
   field(FLNK,"$(P)$(R)GeneralSwePoints-RB")
 }
 
-######################################################################
-# Auto Adjust Center Frequency
+# Auto Adjust Frequency Scale
 
 record(bo, "$(P)$(R)GeneralAutoFreq-Cmd") {
   field(DESC, "Auto adjust center frequency")
@@ -160,7 +154,6 @@ record(bo, "$(P)$(R)GeneralAutoFreq-Cmd") {
   field(OUT, "@rsfsv.proto outAutoFreq($1) $(PORT)")
 }
 
-######################################################################
 # Auto Adjust Reference Level
 
 record(bo, "$(P)$(R)GeneralAutoLvl-Cmd") {
@@ -172,7 +165,6 @@ record(bo, "$(P)$(R)GeneralAutoLvl-Cmd") {
   field(OUT, "@rsfsv.proto outAutoLvl($1) $(PORT)")
 }
 
-######################################################################
 # Auto Adjust Frequency and Reference Level
 
 record(bo, "$(P)$(R)GeneralAutoAll-Cmd") {
@@ -184,7 +176,6 @@ record(bo, "$(P)$(R)GeneralAutoAll-Cmd") {
   field(OUT, "@rsfsv.proto outAutoAll($1) $(PORT)")
 }
 
-######################################################################
 # Read Trace
 
 record(waveform, "$(P)$(R)GeneralTrace-RB") {
@@ -196,8 +187,7 @@ record(waveform, "$(P)$(R)GeneralTrace-RB") {
     field(INP,  "@rsfsv.proto inTrace $(PORT)")
 }
 
-######################################################################
-# CENTER FREQUENCY
+# Center Frequency
 
 record(ai, "$(P)$(R)FreqCenter-RB") {
   field(DESC, "Get center frequency")
@@ -219,8 +209,7 @@ record(ao, "$(P)$(R)FreqCenter-SP") {
   field(FLNK,"$(P)$(R)FreqCenter-RB")
 }
 
-######################################################################
-# FREQUENCY SPAN
+# Frequency Span
 
 record(ai, "$(P)$(R)FreqSpan-RB") {
   field(DESC, "Get frequency span")
@@ -242,8 +231,7 @@ record(ao, "$(P)$(R)FreqSpan-SP") {
   field(FLNK,"$(P)$(R)FreqSpan-RB")
 }
 
-######################################################################
-# START FREQUENCY
+# Start Frequency
 
 record(ai, "$(P)$(R)FreqStart-RB") {
   field(DESC, "Get start frequency")
@@ -265,8 +253,7 @@ record(ao, "$(P)$(R)FreqStart-SP") {
   field(FLNK,"$(P)$(R)FreqStart-RB")
 }
 
-######################################################################
-# STOP FREQUENCY
+# Stop Frequency
 
 record(ai, "$(P)$(R)FreqStop-RB") {
   field(DESC, "Get stop frequency")
@@ -288,8 +275,27 @@ record(ao, "$(P)$(R)FreqStop-SP") {
   field(FLNK,"$(P)$(R)FreqStop-RB")
 }
 
-######################################################################
-# Get X Value of the Marker
+# Enable Marker
+#
+#record(bi, "$(P)$(R)EnblMark1-Sts") {
+#  field(DESC, "Get Marker1 State")
+#  field(SCAN, "1 second")
+#  field(DTYP, "stream")
+#  field(ZNAM, "OFF")
+#  field(ONAM, "ON")
+#  field(INP, "@rsfsv.proto inEnblMark1 $(PORT)")
+#}
+#
+#record(bo, "$(P)$(R)EnblMark1-Sel") {
+#  field(DESC, "Set Marker1 State")
+#  field(DTYP, "stream")
+#  field(ZNAM, "OFF")
+#  field(ONAM, "ON")
+#  field(OUT, "@rsfsv.proto outEnblMark1($1) $(PORT)")
+#  field(FLNK,"$(P)$(R)EnblMark1-Sts")
+#}
+
+# X Value of the Marker
 
 record(ai, "$(P)$(R)MarkX-RB") {
   field(DESC, "Get X value of the marker")
@@ -311,12 +317,11 @@ record(ao, "$(P)$(R)MarkX-SP") {
   field(FLNK,"$(P)$(R)MarkX-RB")
 }
 
-######################################################################
-# Get Y Value of the Marker
+# Y Value of the Marker
 
 record(ai, "$(P)$(R)MarkY-RB") {
   field(DESC, "Get Y value of the marker")
-  field(SCAN, "1 second")
+  field(SCAN, "5 second")
   field(DTYP, "stream")
   field(PREC, "1")
   field(MDEL, "-1")
@@ -326,7 +331,6 @@ record(ai, "$(P)$(R)MarkY-RB") {
   field(INP, "@rsfsv.proto inMarkY $(PORT)")
 }
 
-######################################################################
 # Set Marker to Max Peak on Trace
 
 record(bo, "$(P)$(R)MarkFindMax-Cmd") {
@@ -337,8 +341,7 @@ record(bo, "$(P)$(R)MarkFindMax-Cmd") {
   field(HIGH, "1")
   field(OUT, "@rsfsv.proto outMarkMax($1) $(PORT)")
 }
-
-######################################################################
+################################################################
 # Save
 # Desc: Save '-Sel' and '-SP' PV values.
 

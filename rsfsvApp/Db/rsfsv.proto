@@ -69,6 +69,89 @@ inIdn {
 }
 
 ######################################################################
+# Reference Level
+#
+inRefLvl {
+    out "DISP:WIND:TRAC:Y:RLEV?";
+    in "%f";
+}
+
+outRefLvl {
+    out "DISP:WIND:TRAC:Y:RLEV %f";
+    @init { inRefLvl; };
+}
+
+######################################################################
+# Reference Level Offset
+#
+inRefOff {
+    out "DISP:WIND:TRAC:Y:RLEV:OFFS?";
+    in "%f";
+}
+
+outRefOff {
+    out "DISP:WIND:TRAC:Y:RLEV:OFFS %f";
+    @init { inRefOff; };
+}
+
+######################################################################
+# Continuous Sweep Mode
+#
+inSweMode {
+    out "INIT:CONT?";
+    in "%i";
+}
+
+outSweMode {
+    out "INIT:CONT %{OFF|ON}";
+    @init { inSweMode; };
+}
+
+######################################################################
+# Sweep Points Number (MIN 101; MAX 32001)
+#
+inSwePoints {
+    out "SWE:POIN?";
+    in "%i";
+}
+
+outSwePoints {
+    out "SWE:POIN %i";
+    @init { inSwePoints; };
+}
+
+######################################################################
+# Auto Adjust Frequency Scale
+#
+outAutoFreq {
+    out "%{|ADJ:FREQ}";
+}
+
+######################################################################
+# Auto Adjust Level Scale
+#
+outAutoLvl {
+    out "%{|ADJ:LEV}";
+}
+
+######################################################################
+# Auto Adjust Frequency and Level Scale
+#
+outAutoAll {
+    out "%{|ADJ:ALL}";
+}
+
+######################################################################
+# Trace Data (single sweep --> INIT:CONT OFF)
+#
+inTrace {
+    Separator=",";
+    out "INIT;*WAI";
+    out "TRAC? TRACE1";
+    in "%E";
+}
+
+######################################################################
 # Center Frequency
 #
 inFrqCent {
@@ -120,90 +203,23 @@ outFrqStop {
     @init { inFrqStop; };
 }
 
-######################################################################
-# Reference Level
-#
-inRefLvl {
-    out "DISP:WIND:TRAC:Y:RLEV?";
-    in "%f";
-}
-
-outRefLvl {
-    out "DISP:WIND:TRAC:Y:RLEV %f";
-    @init { inRefLvl; };
-}
-######################################################################
-# Reference Level Offset
-#
-inRefOff {
-    out "DISP:WIND:TRAC:Y:RLEV:OFFS?";
-    in "%f";
-}
-
-outRefOff {
-    out "DISP:WIND:TRAC:Y:RLEV:OFFS %f";
-    @init { inRefOff; };
-}
 
 ######################################################################
-# Continuous Sweep Mode
+# Enable Marker
 #
-inSweMode {
-    out "INIT:CONT?";
-    in "%i";
-}
-
-outSweMode {
-    out "INIT:CONT %{OFF|ON}";
-    @init { inSweMode; };
-}
-######################################################################
-# Sweep Points Number (MIN 101; MAX 32001)
+#inEnblMark1 {
+#	out "CALC:MARK1:STAT?";
+#	in "%i";
+#}
 #
-inSwePoints {
-    out "SWE:POIN?";
-    in "%i";
-}
-
-outSwePoints {
-    out "SWE:POIN %i";
-    @init { inSwePoints; };
-}
-
-######################################################################
-# Auto Adjust Frequency Scale
-#
-outAutoFreq {
-    out "%{|ADJ:FREQ}";
-}
-
-######################################################################
-# Auto Adjust Level Scale
-#
-outAutoLvl {
-    out "%{|ADJ:LEV}";
-}
-
-######################################################################
-# Auto Adjust Frequency and Level Scale
-#
-outAutoAll {
-    out "%{|ADJ:ALL}";
-}
-
-######################################################################
-# Trace Data (single sweep --> INIT:CONT OFF)
-#
-inTrace {
-    Separator=",";
-    out "INIT;*WAI";
-    out "TRAC? TRACE1";
-    in "%E";
-}
+#outEnblMark1 {
+#	out "CALC:MARK1:STAT %i";
+#	@init { inEnblMark1; };
+#}
 
 ######################################################################
 # Marker X Value
-#
+
 inMarkX {
     out "CALC:MARK:X?";
     in "%f";
@@ -216,7 +232,7 @@ outMarkX {
 
 ######################################################################
 # Marker Y Value
-#
+
 inMarkY {
     out "CALC:MARK:Y?";
     in "%f";
@@ -224,7 +240,7 @@ inMarkY {
 
 ######################################################################
 # Set Marker to Max Peak on Trace
-#
+
 outMarkMax {
     out "%{|CALC:MARK:MAX}";
 }
