@@ -22,11 +22,12 @@
 TEMPLATE_TOP=${EPICS_BASE}/templates/makeBaseApp/top
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-SUPPORT=/opt/epics/base/../synApps_5_7/support
-#SUPPORT=/usr/local/epics/synApps_5_7/support
+#SUPPORT=/opt/epics/base/../synApps_5_8/support
+SUPPORT=/usr/local/epics/synApps_5_8/support
 
 ASYN=$(SUPPORT)/asyn-4-21/asyn
-STREAM=$(SUPPORT)/stream-2-6/StreamDevice
+#STREAM=$(SUPPORT)/stream-2-6/StreamDevice
+STREAM=$(SUPPORT)/stream-2-7-7/StreamDevice-stream_2_7_7
 
 # Specify the standard synApps configuration.
 include $(SUPPORT)/configure/RELEASE
