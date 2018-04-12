@@ -275,60 +275,173 @@ record(ao, "$(P)$(R)FreqStop-SP") {
   field(FLNK,"$(P)$(R)FreqStop-RB")
 }
 
-# Enable Marker
-#
-#record(bi, "$(P)$(R)EnblMark1-Sts") {
-#  field(DESC, "Get Marker1 State")
-#  field(SCAN, "1 second")
-#  field(DTYP, "stream")
-#  field(ZNAM, "OFF")
-#  field(ONAM, "ON")
-#  field(INP, "@rsfsv.proto inEnblMark1 $(PORT)")
-#}
-#
-#record(bo, "$(P)$(R)EnblMark1-Sel") {
-#  field(DESC, "Set Marker1 State")
-#  field(DTYP, "stream")
-#  field(ZNAM, "OFF")
-#  field(ONAM, "ON")
-#  field(OUT, "@rsfsv.proto outEnblMark1($1) $(PORT)")
-#  field(FLNK,"$(P)$(R)EnblMark1-Sts")
-#}
+# Enable Markers (1-4)
 
-# X Value of the Marker
+record(bi, "$(P)$(R)EnblMark1-Sts") {
+  field(DESC, "Get Marker1 State")
+  field(SCAN, "1 second")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(INP, "@rsfsv.proto inEnblMark1 $(PORT)")
+}
 
-record(ai, "$(P)$(R)MarkX-RB") {
-  field(DESC, "Get X value of the marker")
+record(bo, "$(P)$(R)EnblMark1-Sel") {
+  field(DESC, "Set Marker1 State")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(OUT, "@rsfsv.proto outEnblMark1($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark1X-RB")
+  field(FLNK,"$(P)$(R)EnblMark1-Sts")
+}
+
+record(bi, "$(P)$(R)EnblMark2-Sts") {
+  field(DESC, "Get Marker2 State")
+  field(SCAN, "1 second")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(INP, "@rsfsv.proto inEnblMark2 $(PORT)")
+}
+
+record(bo, "$(P)$(R)EnblMark2-Sel") {
+  field(DESC, "Set Marker2 State")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(OUT, "@rsfsv.proto outEnblMark2($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark2X-RB")
+}
+
+record(bi, "$(P)$(R)EnblMark3-Sts") {
+  field(DESC, "Get Marker3 State")
+  field(SCAN, "1 second")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(INP, "@rsfsv.proto inEnblMark3 $(PORT)")
+}
+
+record(bo, "$(P)$(R)EnblMark3-Sel") {
+  field(DESC, "Set Marker3 State")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(OUT, "@rsfsv.proto outEnblMark3($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark3X-RB")
+}
+
+record(bi, "$(P)$(R)EnblMark4-Sts") {
+  field(DESC, "Get Marker4 State")
+  field(SCAN, "1 second")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(INP, "@rsfsv.proto inEnblMark4 $(PORT)")
+}
+
+record(bo, "$(P)$(R)EnblMark4-Sel") {
+  field(DESC, "Set Marker4 State")
+  field(DTYP, "stream")
+  field(ZNAM, "OFF")
+  field(ONAM, "ON")
+  field(OUT, "@rsfsv.proto outEnblMark4($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark4-RB")
+}
+
+
+# Markers X Values
+
+record(ai, "$(P)$(R)Mark1X-RB") {
+  field(DESC, "Get X value of the marker1")
+  field(DTYP, "stream")
+  field(SCAN, "1 second")
+  field(PREC, "1")
+#  field(MDEL, "-1")
+#  field(ADEL, "-1")
+  field(LINR, "NO CONVERSION")
+  field(EGU, "seconds or Hz")
+  field(INP, "@rsfsv.proto inMark1X $(PORT)")
+}
+
+record(ao, "$(P)$(R)Mark1X-SP") {
+  field(DESC, "Set X value of the marker1")
+  field(DTYP, "stream")
+  field(EGU, "seconds or Hz")
+  field(OUT, "@rsfsv.proto outMark1X($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark1X-RB")
+}
+
+record(ai, "$(P)$(R)Mark2X-RB") {
+  field(DESC, "Get X value of the marker2")
+  field(DTYP, "stream")
+  field(PREC, "1")
+  field(MDEL, "-1")
+  field(ADEL, "-1")
+  field(LINR, "NO CONVERSION")
+  field(EGU, "seconds or Hz")
+  field(INP, "@rsfsv.proto inMark2X $(PORT)")
+}
+
+record(ao, "$(P)$(R)Mark2X-SP") {
+  field(DESC, "Set X value of the marker2")
+  field(DTYP, "stream")
+  field(EGU, "seconds or Hz")
+  field(OUT, "@rsfsv.proto outMark2X($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark2X-RB")
+}
+
+record(ai, "$(P)$(R)Mark3X-RB") {
+  field(DESC, "Get X value of the marker3")
+  field(DTYP, "stream")
+  field(PREC, "1")
+  field(MDEL, "-1")
+  field(ADEL, "-1")
+  field(LINR, "NO CONVERSION")
+  field(EGU, "seconds or Hz")
+  field(INP, "@rsfsv.proto inMark3X $(PORT)")
+}
+
+record(ao, "$(P)$(R)Mark3X-SP") {
+  field(DESC, "Set X value of the marker3")
+  field(DTYP, "stream")
+  field(EGU, "seconds or Hz")
+  field(OUT, "@rsfsv.proto outMark3X($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark3X-RB")
+}
+
+record(ai, "$(P)$(R)Mark4X-RB") {
+  field(DESC, "Get X value of the marker4")
+  field(DTYP, "stream")
+  field(PREC, "1")
+  field(MDEL, "-1")
+  field(ADEL, "-1")
+  field(LINR, "NO CONVERSION")
+  field(EGU, "seconds or Hz")
+  field(INP, "@rsfsv.proto inMark4X $(PORT)")
+}
+
+record(ao, "$(P)$(R)Mark4X-SP") {
+  field(DESC, "Set X value of the marker4")
+  field(DTYP, "stream")
+  field(EGU, "seconds or Hz")
+  field(OUT, "@rsfsv.proto outMark4X($1) $(PORT)")
+  field(FLNK,"$(P)$(R)Mark4X-RB")
+}
+
+# Markers Y Values
+
+record(ai, "$(P)$(R)Mark1Y-RB") {
+  field(DESC, "Get Y value of the marker")
   field(SCAN, "1 second")
   field(DTYP, "stream")
   field(PREC, "1")
   field(MDEL, "-1")
   field(ADEL, "-1")
   field(LINR, "NO CONVERSION")
-  field(EGU, "seconds or Hz")
-  field(INP, "@rsfsv.proto inMarkX $(PORT)")
-}
-
-record(ao, "$(P)$(R)MarkX-SP") {
-  field(DESC, "Set X value of the marker")
-  field(DTYP, "stream")
-  field(EGU, "seconds or Hz")
-  field(OUT, "@rsfsv.proto outMarkX($1) $(PORT)")
-  field(FLNK,"$(P)$(R)MarkX-RB")
-}
-
-# Y Value of the Marker
-
-record(ai, "$(P)$(R)MarkY-RB") {
-  field(DESC, "Get Y value of the marker")
-  field(SCAN, "5 second")
-  field(DTYP, "stream")
-  field(PREC, "1")
-  field(MDEL, "-1")
-  field(ADEL, "-1")
-  field(LINR, "NO CONVERSION")
   field(EGU, "dBm")
-  field(INP, "@rsfsv.proto inMarkY $(PORT)")
+  field(INP, "@rsfsv.proto inMark1Y $(PORT)")
 }
 
 # Set Marker to Max Peak on Trace

@@ -205,36 +205,92 @@ outFrqStop {
 
 
 ######################################################################
-# Enable Marker
-#
-#inEnblMark1 {
-#	out "CALC:MARK1:STAT?";
-#	in "%i";
-#}
-#
-#outEnblMark1 {
-#	out "CALC:MARK1:STAT %i";
-#	@init { inEnblMark1; };
-#}
+# Enable Markers (1-4)
+
+inEnblMark1 {
+	out "CALC:MARK1:STAT?";
+	in "%i";
+}
+
+outEnblMark1 {
+	out "CALC:MARK1:STAT %i";
+	@init { inEnblMark1; };
+}
+
+inEnblMark2 {
+	out "CALC:MARK2:STAT?";
+	in "%i";
+}
+
+outEnblMark2 {
+	out "CALC:MARK2:STAT %i";
+	@init { inEnblMark2; };
+}
+
+inEnblMark3 {
+	out "CALC:MARK3:STAT?";
+	in "%i";
+}
+
+outEnblMark3 {
+	out "CALC:MARK3:STAT %i";
+	@init { inEnblMark3; };
+}
+
+inEnblMark4 {
+	out "CALC:MARK4:STAT?";
+	in "%i";
+}
+
+outEnblMark4 {
+	out "CALC:MARK4:STAT %i";
+	@init { inEnblMark4; };
+}
 
 ######################################################################
-# Marker X Value
+# Markers X Values
 
-inMarkX {
-    out "CALC:MARK:X?";
+inMark1X {
+    out "CALC:MARK1:X?";
     in "%f";
 }
 
-outMarkX {
-    out "CALC:MARK:X %f";
-    @init { inMarkX; };
+outMark1X {
+    out "CALC:MARK1:X %f";
+}
+
+inMark2X {
+    out "CALC:MARK2:X?";
+    in "%f";
+}
+
+outMark2X {
+    out "CALC:MARK2:X %f";
+}
+
+inMark3X {
+    out "CALC:MARK3:X?";
+    in "%f";
+}
+
+outMark3X {
+    out "CALC:MARK3:X %f";
+}
+
+inMark4X {
+    out "CALC:MARK4:X?";
+    in "%f";
+}
+
+outMark4X {
+    out "CALC:MARK4:X %f";
 }
 
 ######################################################################
-# Marker Y Value
+# Markers Y Values
 
-inMarkY {
-    out "CALC:MARK:Y?";
+inMark1Y {
+    out "CALC:MARK1:Y?";
     in "%f";
 }
 
