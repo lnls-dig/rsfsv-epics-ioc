@@ -1,19 +1,40 @@
 #!/bin/sh
 
-while [ "$#" -gt 0 ]; do
-    case "$1" in
-        "-P") P="$2" ;;
-        "-R") R="$2" ;;
-        "-i"|"--device-ip") DEVICE_IP="$2" ;;
-        *) echo "Usage:" >&2
-            echo "  $0 -i DEVICE_IP [-P P_VAL] [-R R_VAL] " >&2
-            echo >&2
-            echo " Options:" >&2
-            echo "  -i or --device-ip                        Configure device IP address" >&2
-            echo "  -P                                       Configure value of \$(P) macro" >&2
-            echo "  -R                                       Configure value of \$(R) macro" >&2
-            exit 2
-    esac
+set -e 
 
-    shift 2
+usage () {
+    echo "Usage:" >&2
+    echo "  $1 -t PROCSERV_TELNET_PORT [-P P_VAL] [-R R_VAL] -i DEVICE_IP " >&2
+    echo >&2
+    echo " Options:" >&2
+    echo "  -t                  Configure procServ telnet port" >&2
+    echo "  -P                  Configure value of \$(P) macro" >&2
+    echo "  -R                  Configure value of \$(R) macro" >&2
+    echo "  -i                  Configure device IP address" >&2
+}
+
+while getopts ":t:P:R:i:" opt; do
+  case $opt in
+    t) DEVICE_TELNET_PORT="$OPTARG" ;;
+    P) P="$OPTARG" ;;
+    R) R="$OPTARG" ;;
+    i) DEVICE_IP="$OPTARG" ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      usage $0
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      usage $0
+      exit 1
+      ;;
+  esac
 done
+
+# if getopts did not process all input
+if [ "$OPTIND" -le "$#" ]; then
+    echo "Invalid argument at index '$OPTIND' does not have a corresponding option." >&2
+    usage $0
+    exit 1
+fi
