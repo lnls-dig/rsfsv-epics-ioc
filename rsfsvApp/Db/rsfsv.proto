@@ -121,6 +121,71 @@ outSwePoints {
 }
 
 ######################################################################
+# Sweep time
+
+inSweTime {
+    out "SENS:SWE:TIME?";
+    in "%f";
+}
+
+outSweTime {
+    out "SENS:SWE:TIME %f";
+    @init { inSweTime; };
+}
+
+######################################################################
+# Enable/Disable automatic coupling of the sweep time to the
+# frequency span and bandwidth settings
+
+
+inEnblSweTimeAuto {
+    out "SENS:SWE:TIME:AUTO?";
+    in "%i";
+}
+
+outEnblSweTimeAuto {
+    out "SENS:SWE:TIME:AUTO %{OFF|ON}";
+    @init { inEnblSweTimeAuto; };
+}
+
+######################################################################
+# Resolution Bandwidth
+
+inRbw {
+    out "SENS:BWID:RES?";
+    in "%i";
+}
+
+outRbw {
+    out "SENS:BWID:RES %i";
+}
+
+######################################################################
+# Video Bandwidth
+
+inVbw {
+    out "SENS:BWID:VID?";
+    in "%i";
+}
+
+outVbw {
+    out "SENS:BWID:VID %i";
+}
+
+######################################################################
+# Enable/Disable automatic coupling of the video bandwidth to the
+# resolution bandwidth
+
+inEnblVbwAuto {
+    out "SENS:BWID:VID:AUTO?";
+    in "%i";
+}
+
+outEnblVbwAuto {
+    out "SENS:BWID:VID:AUTO %{OFF|ON}";
+}
+
+######################################################################
 # Auto Adjust Frequency Scale
 #
 outAutoFreq {
@@ -294,11 +359,87 @@ inMark1Y {
     in "%f";
 }
 
+inMark2Y {
+    out "CALC:MARK2:Y?";
+    in "%f";
+}
+
+inMark3Y {
+    out "CALC:MARK3:Y?";
+    in "%f";
+}
+
+inMark4Y {
+    out "CALC:MARK4:Y?";
+    in "%f";
+}
+
 ######################################################################
 # Set Marker to Max Peak on Trace
 
-outMarkMax {
-    out "%{|CALC:MARK:MAX}";
+outMarkMax1 {
+    out "%{|CALC:MARK1:MAX}";
+}
+
+outMarkMax2 {
+    out "%{|CALC:MARK2:MAX}";
+}
+
+outMarkMax3 {
+    out "%{|CALC:MARK3:MAX}";
+}
+
+outMarkMax4 {
+    out "%{|CALC:MARK4:MAX}";
+}
+
+######################################################################
+# Input Attenuator Value
+
+inAttIn {
+    out "INP:ATT?";
+    in "%i";
+}
+
+outAttIn {
+    out "INP:ATT %i";
+}
+
+######################################################################
+# Enable/Disable automatic coupling of the input attenuation to the
+# reference level
+
+inEnblAttAuto {
+    out "INP:ATT:AUTO?";
+    in 	"%i";
+}
+
+outEnblAttAuto {
+    out "INP:ATT:AUTO %{OFF|ON}";
+}
+
+######################################################################
+# Instruments Nominal input impedance
+
+inImpdIn {
+    out "INP:IMP?";
+    in "%{50|75}";
+}
+
+outImpdIn {
+    out "INP:IMP %{50|75}";
+}
+
+######################################################################
+# Oscillator Reference
+
+inRoscSrc {
+    out "SOUR:EXT:ROSC:SOUR?";
+    in "%{INT|EXT}";
+}
+
+outRoscSrc {
+    out "SOUR:EXT:ROSC:SOUR %{INT|EXT}";
 }
 
 ######################################################################
