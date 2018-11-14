@@ -57,8 +57,8 @@ ReplyTimeout = ${GLOBAL_TIMEOUT};
 
 ######################################################################
 # Reset to default state
-outRst {
-       out "%{|*RST; *WAI}";
+cmdRst {
+    out "%{|*RST; *WAI}";
 }
 
 ######################################################################
@@ -149,6 +149,19 @@ outEnblSweTimeAuto {
 }
 
 ######################################################################
+# Type of display and evaluation of the trace
+
+inTraceMode {
+    out "DISP:WIND:TRAC1:MODE?";
+    in "%{WRIT|VIEW|AVER|MAXH|MINH|BLANK}";
+}
+
+outTraceMode {
+    out "DISP:WIND:TRAC1:MODE %{WRIT|VIEW|AVER|MAXH|MINH|BLANK}";
+    @init { inTraceMode; };
+}
+
+######################################################################
 # Resolution Bandwidth
 
 inRbw {
@@ -186,6 +199,42 @@ outEnblVbwAuto {
 }
 
 ######################################################################
+# Select Filter Type
+
+inFiltType {
+    out "SENS:BWID:RES:TYPE?";
+    in "%s";
+}
+
+outFiltType {
+    out "SENS:BWID:RES:TYPE %{NORM|FFT|CFIL|RRC|PULS}";
+}
+
+######################################################################
+# Select Detector Type Manually
+
+inDetecType {
+    out "SENS:DET:FUNC?";
+    in "%s";
+}
+
+outDetecType {
+    out "SENS:DET:FUNC %{APE|NEG|POS|SAMP|RMS|AVER|QPE}";
+}
+
+######################################################################
+# Enable/Disable continuous sweep measurement (SPECM, option K14)
+
+inEnblSweCont {
+    out "INIT:CONT?";
+    in "%i";
+}
+
+outEnblSweCont {
+    out "INIT:CONT %{OFF|ON}";
+}
+
+######################################################################
 # Auto Adjust Frequency Scale
 #
 outAutoFreq {
@@ -207,9 +256,63 @@ outAutoAll {
 }
 
 ######################################################################
+# Markers Y Values
+
+monMarkY1 {
+    out "CALC:MARK1:Y?";
+    in "%f";
+}
+
+monMarkY2 {
+    out "CALC:MARK2:Y?";
+    in "%f";
+}
+
+monMarkY3 {
+    out "CALC:MARK3:Y?";
+    in "%f";
+}
+
+monMarkY4 {
+    out "CALC:MARK4:Y?";
+    in "%f";
+}
+
+######################################################################
+# Delta Markers Y Values
+
+monDMarkY1 {
+    out "CALC:DELT1:Y?";
+    in "%f";
+}
+
+monDMarkY2 {
+    out "CALC:DELT2:Y?";
+    in "%f";
+}
+
+monDMarkY3 {
+    out "CALC:DELT3:Y?";
+    in "%f";
+}
+
+monDMarkY4 {
+    out "CALC:DELT4:Y?";
+    in "%f";
+}
+
+######################################################################
+# Queries the result of the markers frequency count (only available for Marker1)
+
+monMarkCount {
+    out "CALC:MARK:COUN:FREQ?";
+    in "%f";
+}
+
+######################################################################
 # Trace Data (single sweep --> INIT:CONT OFF)
 #
-inTrace {
+monTrace {
     Separator=",";
     out "INIT;*WAI";
     out "TRAC? TRACE1";
@@ -292,6 +395,10 @@ outEnblMark2 {
 	@init { inEnblMark2; };
 }
 
+outOnOffM2 {
+    out "CALC:MARK2:STAT %i";
+}
+
 inEnblMark3 {
 	out "CALC:MARK3:STAT?";
 	in "%i";
@@ -300,6 +407,10 @@ inEnblMark3 {
 outEnblMark3 {
 	out "CALC:MARK3:STAT %i";
 	@init { inEnblMark3; };
+}
+
+outOnOffM3 {
+    out "CALC:MARK3:STAT %i";
 }
 
 inEnblMark4 {
@@ -312,43 +423,244 @@ outEnblMark4 {
 	@init { inEnblMark4; };
 }
 
+outOnOffM4 {
+    out "CALC:MARK4:STAT %i";
+}
+
 ######################################################################
 # Markers X Values
 
-inMark1X {
+inMarkX1 {
     out "CALC:MARK1:X?";
     in "%f";
 }
 
-outMark1X {
+outMarkX1 {
     out "CALC:MARK1:X %f";
 }
 
-inMark2X {
+inMarkX2 {
     out "CALC:MARK2:X?";
     in "%f";
 }
 
-outMark2X {
+outMarkX2 {
     out "CALC:MARK2:X %f";
 }
 
-inMark3X {
+inMarkX3 {
     out "CALC:MARK3:X?";
     in "%f";
 }
 
-outMark3X {
+outMarkX3 {
     out "CALC:MARK3:X %f";
 }
 
-inMark4X {
+inMarkX4 {
     out "CALC:MARK4:X?";
     in "%f";
 }
 
-outMark4X {
+outMarkX4 {
     out "CALC:MARK4:X %f";
+}
+
+#######################################################################
+# Enable automatic peak search (only available for Marker1)
+
+inEnblMaxAuto {
+    out "CALC:MARK:MAX:AUTO?";
+    in "%i";
+}
+
+outEnblMaxAuto {
+    out "CALC:MARK:MAX:AUTO %{OFF|ON}";
+}
+
+######################################################################
+# Enable Marker Frequency Counter (only available for Marker1)
+
+inEnblMarkCount {
+    out "CALC:MARK:COUN?";
+    in "%i";
+}
+
+outEnblMarkCount {
+    out "CALC:MARK:COUN %i";
+}
+
+######################################################################
+# Enable automatic peak search (only available for Marker1)
+
+inEnblMinAuto {
+    out "CALC:MARK:MIN:AUTO?";
+    in "%i";
+}
+
+outEnblMinAuto {
+    out "CALC:MARK:MIN:AUTO %{OFF|ON}";
+}
+
+######################################################################
+# Define the peak excursion
+
+inMarkPExcursion {
+    out "CALC:MARK:PEXC?";
+    in "%f";
+}
+
+outMarkPExcursion {
+    out "CALC:MARK:PEXC %f";
+}
+
+######################################################################
+# Enable/Disable limited search range
+
+inEnblMarkLimit {
+    out "CALC:MARK:X:SLIM:STAT?";
+    in "%i";
+}
+
+outEnblMarkLimit {
+    out "CALC:MARK:X:SLIM:STAT %{OFF|ON}";
+}
+
+######################################################################
+# Left limit for the search range
+
+inMarkLimitLeft {
+    out "CALC:MARK:X:SLIM:LEFT?";
+    in "%f";
+}
+
+outMarkLimitLeft {
+    out "CALC:MARK:X:SLIM:LEFT %f";
+}
+
+######################################################################
+# Right limit for the search range
+
+inMarkLimitRight {
+    out "CALC:MARK:X:SLIM:RIGHT?";
+    in "%f";
+}
+
+outMarkLimitRight {
+    out "CALC:MARK:X:SLIM:RIGHT %f";
+}
+
+######################################################################
+# Enable/Disable Delta Markers (1-4)
+
+inEnblDMark1 {
+    out "CALC:DELT1:STAT?";
+    in "%i";
+}
+
+outEnblDMark1 {
+    out "CALC:DELT1:STAT %i";
+    @init { inEnblDMark1; };
+}
+
+outOnOffDM1 {
+    out "CALC:DELT1:STAT %i";
+}
+
+
+inEnblDMark2 {
+    out "CALC:DELT2:STAT?";
+    in "%i";
+}
+
+
+outEnblDMark2 {
+    out "CALC:DELT2:STAT %i";
+    @init { inEnblDMark2; };
+}
+
+outOnOffDM2 {
+    out "CALC:DELT2:STAT %i";
+}
+
+inEnblDMark3 {
+    out "CALC:DELT3:STAT?";
+    in "%i";
+}
+
+outEnblDMark3 {
+    out "CALC:DELT3:STAT %i";
+    @init { inEnblDMark3; };
+}
+
+outOnOffDM3 {
+    out "CALC:DELT3:STAT %i";
+}
+
+inEnblDMark4 {
+    out "CALC:DELT4:STAT?";
+    in "%i";
+}
+
+outEnblDMark4 {
+    out "CALC:DELT4:STAT %i";
+    @init { inEnblDMark4; };
+}
+
+outOnOffDM4 {
+    out "CALC:DELT4:STAT %i";
+}
+
+######################################################################
+# Delta Markers X Values
+
+inDMarkX1 {
+    out "CALC:DELT1:X?";
+    in "%f";
+}
+
+outDMarkX1 {
+    out "CALC:DELT1:X %f";
+}
+
+inDMarkX2 {
+    out "CALC:DELT2:X?";
+    in "%f";
+}
+
+outDMarkX2 {
+    out "CALC:DELT2:X %f";
+}
+
+inDMarkX3 {
+    out "CALC:DELT3:X?";
+    in "%f";
+}
+
+outDMarkX3 {
+    out "CALC:DELT3:X %f";
+}
+
+inDMarkX4 {
+    out "CALC:DELT4:X?";
+    in "%f";
+}
+
+outDMarkX4 {
+    out "CALC:DELT4:X %f";
+}
+
+#####################################################################
+# State of tracking generator output
+
+inEnblOut {
+    out "OUTP:STAT?";
+    in "%i";
+}
+
+outEnblOut {
+    out "OUTP:STAT %{OFF|ON}";
+    @init { inEnblOut; };
 }
 
 ######################################################################
@@ -375,22 +687,334 @@ inMark4Y {
 }
 
 ######################################################################
-# Set Marker to Max Peak on Trace
+# Set Markers to Max Peak on Trace (1-4)
 
-outMarkMax1 {
-    out "%{|CALC:MARK1:MAX}";
+cmdMarkMax1 {
+    out "%{|CALC:MARK1:MAX:PEAK}";
 }
 
-outMarkMax2 {
-    out "%{|CALC:MARK2:MAX}";
+cmdMarkMax2 {
+    out "%{|CALC:MARK2:MAX:PEAK}";
 }
 
-outMarkMax3 {
-    out "%{|CALC:MARK3:MAX}";
+cmdMarkMax3 {
+    out "%{|CALC:MARK3:MAX:PEAK}";
 }
 
-outMarkMax4 {
-    out "%{|CALC:MARK4:MAX}";
+cmdMarkMax4 {
+    out "%{|CALC:MARK4:MAX:PEAK}";
+}
+
+######################################################################
+# Set Delta Markers to Max Peak on Trace (1-4)
+
+cmdDMarkMax1 {
+    out "%{|CALC:DELT1:MAX:PEAK}";
+}
+
+cmdDMarkMax2 {
+    out "%{|CALC:DELT2:MAX:PEAK}";
+}
+
+cmdDMarkMax3 {
+    out "%{|CALC:DELT3:MAX:PEAK}";
+}
+
+cmdDMarkMax4 {
+    out "%{|CALC:DELT4:MAX:PEAK}";
+}
+
+######################################################################
+# Turn all markers off
+
+cmdMarkAOff {
+    out "%{|CALC:MARK:AOFF}";
+}
+
+######################################################################
+# Position the marker to the next smaller maximium value to the left
+# of the current value (1-4)
+
+cmdMarkMaxLeft1 {
+    out "%{|CALC:MARK1:MAX:LEFT}";
+}
+
+cmdMarkMaxLeft2 {
+    out "%{|CALC:MARK2:MAX:LEFT}";
+}
+
+cmdMarkMaxLeft3 {
+    out "%{|CALC:MARK3:MAX:LEFT}";
+}
+
+cmdMarkMaxLeft4 {
+    out "%{|CALC:MARK4:MAX:LEFT}";
+}
+
+######################################################################
+# Position the delta marker to the next smaller maximium value to the left
+# of the current value (1-4)
+
+cmdDMarkMaxLeft1 {
+    out "%{|CALC:DELT1:MAX:LEFT}";
+}
+
+cmdDMarkMaxLeft2 {
+    out "%{|CALC:DELT2:MAX:LEFT}";
+}
+
+cmdDMarkMaxLeft3 {
+    out "%{|CALC:DELT3:MAX:LEFT}";
+}
+
+cmdDMarkMaxLeft4 {
+    out "%{|CALC:DELT4:MAX:LEFT}";
+}
+
+######################################################################
+# Position the marker to the next smaller minimium value to the left
+# of the current value (1-4)
+
+cmdMarkMinLeft1 {
+    out "%{|CALC:MARK1:MIN:LEFT}";
+}
+
+cmdMarkMinLeft2 {
+    out "%{|CALC:MARK2:MIN:LEFT}";
+}
+
+cmdMarkMinLeft3 {
+    out "%{|CALC:MARK3:MIN:LEFT}";
+}
+
+cmdMarkMinLeft4 {
+    out "%{|CALC:MARK4:MIN:LEFT}";
+}
+
+######################################################################
+# Position the delta marker to the next smaller minimium value to the left
+# of the current value (1-4)
+
+cmdDMarkMinLeft1 {
+    out "%{|CALC:DELT1:MIN:LEFT}";
+}
+
+cmdDMarkMinLeft2 {
+    out "%{|CALC:DELT2:MIN:LEFT}";
+}
+
+cmdDMarkMinLeft3 {
+    out "%{|CALC:DELT3:MIN:LEFT}";
+}
+
+cmdDMarkMinLeft4 {
+    out "%{|CALC:DELT4:MIN:LEFT}";
+}
+
+######################################################################
+# Position the marker to the next smaller maximium value of the
+# corresponding trace (1-4)
+
+cmdMarkMaxNext1 {
+    out "%{|CALC:MARK1:MAX:NEXT}";
+}
+
+cmdMarkMaxNext2 {
+    out "%{|CALC:MARK2:MAX:NEXT}";
+}
+
+cmdMarkMaxNext3 {
+    out "%{|CALC:MARK3:MAX:NEXT}";
+}
+
+cmdMarkMaxNext4 {
+    out "%{|CALC:MARK4:MAX:NEXT}";
+}
+
+######################################################################
+# Position the delta marker to the next smaller maximium value of the
+# corresponding trace (1-4)
+
+cmdDMarkMaxNext1 {
+    out "%{|CALC:DELT1:MAX:NEXT}";
+}
+
+cmdDMarkMaxNext2 {
+    out "%{|CALC:DELT2:MAX:NEXT}";
+}
+
+cmdDMarkMaxNext3 {
+    out "%{|CALC:DELT3:MAX:NEXT}";
+}
+
+cmdDMarkMaxNext4 {
+    out "%{|CALC:DELT4:MAX:NEXT}";
+}
+
+######################################################################
+# Position the marker to the next smaller minimium value of the
+# corresponding trace (1-4)
+
+cmdMarkMinNext1 {
+    out "%{|CALC:MARK1:MIN:NEXT}";
+}
+
+cmdMarkMinNext2 {
+    out "%{|CALC:MARK2:MIN:NEXT}";
+}
+
+cmdMarkMinNext3 {
+    out "%{|CALC:MARK3:MIN:NEXT}";
+}
+
+cmdMarkMinNext4 {
+    out "%{|CALC:MARK4:MIN:NEXT}";
+}
+
+######################################################################
+# Position the delta marker to the next smaller minimium value of the
+# corresponding trace (1-4)
+
+cmdDMarkMinNext1 {
+    out "%{|CALC:DELT1:MIN:NEXT}";
+}
+
+cmdDMarkMinNext2 {
+    out "%{|CALC:DELT2:MIN:NEXT}";
+}
+
+cmdDMarkMinNext3 {
+    out "%{|CALC:DELT3:MIN:NEXT}";
+}
+
+cmdDMarkMinNext4 {
+    out "%{|CALC:DELT4:MIN:NEXT}";
+}
+
+#####################################################################
+# Position the marker to the next smaller maximium value to the right
+# of the current value (1-4)
+
+cmdMarkMaxRight1 {
+    out "%{|CALC:MARK1:MAX:RIGHT}";
+}
+
+cmdMarkMaxRight2 {
+    out "%{|CALC:MARK2:MAX:RIGHT}";
+}
+
+cmdMarkMaxRight3 {
+    out "%{|CALC:MARK3:MAX:RIGHT}";
+}
+
+cmdMarkMaxRight4 {
+    out "%{|CALC:MARK4:MAX:RIGHT}";
+}
+
+#####################################################################
+# Position the delta marker to the next smaller maximium value to the right
+# of the current value (1-4)
+
+cmdDMarkMaxRight1 {
+    out "%{|CALC:DELT1:MAX:RIGHT}";
+}
+
+cmdDMarkMaxRight2 {
+    out "%{|CALC:DELT2:MAX:RIGHT}";
+}
+
+cmdDMarkMaxRight3 {
+    out "%{|CALC:DELT3:MAX:RIGHT}";
+}
+
+cmdDMarkMaxRight4 {
+    out "%{|CALC:DELT4:MAX:RIGHT}";
+}
+
+#####################################################################
+# Position the marker to the next smaller minimium value to the right
+# of the current value (1-4)
+
+cmdMarkMinRight1 {
+    out "%{|CALC:MARK1:MIN:RIGHT}";
+}
+
+cmdMarkMinRight2 {
+    out "%{|CALC:MARK2:MIN:RIGHT}";
+}
+
+cmdMarkMinRight3 {
+    out "%{|CALC:MARK3:MIN:RIGHT}";
+}
+
+cmdMarkMinRight4 {
+    out "%{|CALC:MARK4:MIN:RIGHT}";
+}
+
+#####################################################################
+# Position the delta marker to the next smaller minimium value to the right
+# of the current value (1-4)
+
+cmdDMarkMinRight1 {
+    out "%{|CALC:DELT1:MIN:RIGHT}";
+}
+
+cmdDMarkMinRight2 {
+    out "%{|CALC:DELT2:MIN:RIGHT}";
+}
+
+cmdDMarkMinRight3 {
+    out "%{|CALC:DELT3:MIN:RIGHT}";
+}
+
+cmdDMarkMinRight4 {
+    out "%{|CALC:DELT4:MIN:RIGHT}";
+}
+
+#####################################################################
+# Set Markers to Min Peak on Trace (1-4)
+
+cmdMarkMin1 {
+    out "%{|CALC:MARK1:MIN:PEAK}";
+}
+
+cmdMarkMin2 {
+    out "%{|CALC:MARK2:MIN:PEAK}";
+}
+
+cmdMarkMin3 {
+    out "%{|CALC:MARK3:MIN:PEAK}";
+}
+
+cmdMarkMin4 {
+    out "%{|CALC:MARK4:MIN:PEAK}";
+}
+
+#####################################################################
+# Set Delta Markers to Min Peak on Trace (1-4)
+
+cmdDMarkMin1 {
+    out "%{|CALC:DELT1:MIN:PEAK}";
+}
+
+cmdDMarkMin2 {
+    out "%{|CALC:DELT2:MIN:PEAK}";
+}
+
+cmdDMarkMin3 {
+    out "%{|CALC:DELT3:MIN:PEAK}";
+}
+
+cmdDMarkMin4 {
+    out "%{|CALC:DELT4:MIN:PEAK}";
+}
+
+######################################################################
+# Switch off all Delta Markers
+
+
+cmdDMarkAOff {
+    out "%{|CALC:DELT:AOFF}";
 }
 
 ######################################################################
@@ -440,6 +1064,30 @@ inRoscSrc {
 
 outRoscSrc {
     out "SOUR:EXT:ROSC:SOUR %{INT|EXT}";
+}
+
+######################################################################
+# Tracking Generator Level
+
+inLvlOut {
+    out "SOUR:POW:LEV:IMM:AMPL?";
+    in "%f";
+}
+
+outLvlOut {
+    out "SOUR:POW:LEV:IMM:AMPL %f";
+}
+
+######################################################################
+# Tracking Generator Offset Level
+
+inLvlOutOffset {
+    out "SOUR:POW:LEV:IMM:OFFS?";
+    in "%f";
+}
+
+outLvlOutOffset {
+    out "SOUR:POW:LEV:IMM:OFFS %f";
 }
 
 ######################################################################
