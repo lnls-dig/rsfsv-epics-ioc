@@ -13,7 +13,7 @@ dbLoadDatabase("$(TOP)/dbd/rsfsv.dbd",0,0)
 rsfsv_registerRecordDeviceDriver pdbbase
 
 ## Load record instances
-dbLoadRecords("${TOP}/rsfsvApp/Db/rsfsv.db", "P=$(P), R=$(R), PORT=rsfsv_port, ADDR=0, TIMEOUT=1")
+dbLoadRecords("${TOP}/rsfsvApp/Db/rsfsv.db", "P=$(P), R=$(R), PORT=$(PORT), ADDR=0, TIMEOUT=1")
 
 # Create the asyn port to use the VXI11 protocol
 vxi11Configure("rsfsv_port","$(DEVICE_IP)",0,"0.0","inst0",0,0)
