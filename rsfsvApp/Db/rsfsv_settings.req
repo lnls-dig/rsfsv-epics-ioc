@@ -1,16 +1,16 @@
 # This file specifies which PVs of the corresponding database should be saved.
 
 # Reference Level
-$(P)$(R)GeneralRefLvl-SP
+$(P)$(R)RefLvl-SP
 
 # Reference Level Offset
-$(P)$(R)GeneralRefOff-SP
+$(P)$(R)RefOff-SP
 
 # Continuous Sweep State
-$(P)$(R)GeneralSweMode-Sel
+$(P)$(R)EnblContSwe-Sts
 
 # Sweep Points Number
-$(P)$(R)GeneralSwePoints-SP
+$(P)$(R)SwePts-SP
 
 # Center Frequency
 $(P)$(R)FreqCenter-SP
@@ -24,5 +24,8 @@ $(P)$(R)FreqStart-SP
 # Stop Frequency
 $(P)$(R)FreqStop-SP
 
-# Get X Value of the Marker
-$(P)$(R)MarkX-SP
+# Get X Value of the Markers
+$(P)$(R)MarkX1-SP
+$(P)$(R)MarkX2-SP
+$(P)$(R)MarkX3-SP
+$(P)$(R)MarkX4-SP
