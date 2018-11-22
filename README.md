@@ -1,3 +1,5 @@
+# !! WARNING !! DEPRECATED REPOSITORY. USE NEW REPOSIORY https://github.com/lnls-dig/rsfsx-epics-ioc
+
 # rsfsv-epics-ioc
 
 ## Overall
